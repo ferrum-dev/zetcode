@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        async function handleRequest() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const key = urlParams.get('key');
+            const hwid = urlParams.get('hwid');
+            const nonce = urlParams.get('nonce');
+
+            if (key && hwid) {
+                try {
+                    const configRes = await fetch('../../config.json');
+                    const config = await configRes.json();
+
+                    const response = await fetch(config.api_endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': config.api_key,
+                            'Authorization': `Bearer ${config.api_key}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            input_key: key,
+                            input_hwid: hwid,
+                            input_nonce: nonce || '0'
+                        })
+                    });
+
+                    const data = await response.json();
+                    document.body.innerText = JSON.stringify(data);
+                } catch (e) {
+                    document.body.innerText = '{"status":"error","msg":"API Error"}';
+                }
+            }
+        }
+        handleRequest();
+    </script>
+</body>
+</html>

@@ -1,46 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZetProtect API Proxy</title>
-</head>
+<html>
+<head><title>404 Not Found</title></head>
 <body>
-    <script>
-        // Простая прослойка: если запрос идет через браузер или лоадер
-        async function handleRequest() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const key = urlParams.get('key');
-            const hwid = urlParams.get('hwid');
-            const nonce = urlParams.get('nonce');
-
-            if (key && hwid) {
-                // Загружаем конфиг
-                const configRes = await fetch('config.json');
-                const config = await configRes.json();
-
-                // Перенаправляем запрос в Supabase
-                const response = await fetch(config.api_endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'apikey': config.api_key,
-                        'Authorization': `Bearer ${config.api_key}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        input_key: key,
-                        input_hwid: hwid,
-                        input_nonce: nonce || '0'
-                    })
-                });
-
-                const data = await response.json();
-                document.body.innerText = JSON.stringify(data);
-            } else {
-                document.body.innerHTML = "<h1>ZetProtect API Status: Online</h1>";
-            }
-        }
-        handleRequest();
-    </script>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx/1.18.0 (Ubuntu)</center>
 </body>
 </html>
