@@ -1,0 +1,9 @@
+{
+  "api_endpoint": "https://ВАШ_ПРОЕКТ.supabase.co/rest/v1/rpc/auth_v3",
+  "api_key": "ВАШ_SUPABASE_ANON_KEY",
+  "security": {
+    "header_prefix": "X-Zet-",
+    "junk_size": 32,
+    "verify_signature": true
+  }
+}
